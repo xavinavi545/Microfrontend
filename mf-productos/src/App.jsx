@@ -53,26 +53,29 @@ function App() {
       id: 1,
       nombre: 'Laptop Pro',
       precio: '$1,299',
-      descripcion: 'Potente laptop para profesionales con procesador de última generación'
+      descripcion: 'Potente laptop para profesionales con procesador de última generación',
     },
     {
       id: 2,
       nombre: 'Mouse Inalámbrico',
       precio: '$49',
-      descripcion: 'Mouse ergonómico con conectividad Bluetooth y batería de larga duración'
+      descripcion: 'Mouse ergonómico con conectividad Bluetooth y batería de larga duración',
     },
     {
       id: 3,
       nombre: 'Teclado Mecánico',
       precio: '$129',
-      descripcion: 'Teclado RGB con switches mecánicos para una experiencia de escritura superior'
-    }
+      descripcion: 'Teclado RGB con switches mecánicos para una experiencia de escritura superior',
+    },
   ];
 
   const handleComprar = (producto) => {
     setCompras([...compras, producto.nombre]);
+
+    window.dispatchEvent(new CustomEvent('producto-agregado', { detail: producto }));
+
     setTimeout(() => {
-      setCompras(compras.filter(c => c !== producto.nombre));
+      setCompras((prevCompras) => prevCompras.filter(c => c !== producto.nombre));
     }, 3000);
   };
 

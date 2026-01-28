@@ -3,6 +3,8 @@ import styled from 'styled-components';
 
 const MFProductos = lazy(() => import('mfProductos/App'));
 const MFUsuarios = lazy(() => import('mfUsuarios/App'));
+const MFCarrito = lazy(() => import('mfCarrito/Carrito'));
+
 
 const ShellContainer = styled.div`
   min-height: 100vh;
@@ -45,8 +47,8 @@ const BotonNav = styled.button`
   cursor: pointer;
   transition: all 0.3s ease;
   
-  background: ${props => props.activo ? '#667eea' : '#e0e0e0'};
-  color: ${props => props.activo ? 'white' : '#666'};
+  background: ${({ activo }) => (activo ? '#667eea' : '#e0e0e0')};
+  color: ${({ activo }) => (activo ? 'white' : '#666')};
   
   &:hover {
     transform: translateY(-2px);
@@ -104,22 +106,31 @@ function App() {
         <Subtitulo>
           Arquitectura modular con aislamiento de estilos
         </Subtitulo>
-        
+
         <Navegacion>
-          <BotonNav 
-            activo={vistaActiva === 'productos'} 
+          <BotonNav
+            activo={vistaActiva === 'productos'}
             onClick={() => setVistaActiva('productos')}
           >
             🛍️ Productos
           </BotonNav>
-          <BotonNav 
-            activo={vistaActiva === 'usuarios'} 
+
+          <BotonNav
+            activo={vistaActiva === 'usuarios'}
             onClick={() => setVistaActiva('usuarios')}
           >
             👥 Usuarios
           </BotonNav>
-          <BotonNav 
-            activo={vistaActiva === 'ambos'} 
+
+          <BotonNav
+            activo={vistaActiva === 'carrito'}
+            onClick={() => setVistaActiva('carrito')}
+          >
+            🛒 Carrito
+          </BotonNav>
+
+          <BotonNav
+            activo={vistaActiva === 'ambos'}
             onClick={() => setVistaActiva('ambos')}
           >
             📊 Ver Ambos
@@ -130,21 +141,20 @@ function App() {
       <InfoPanel>
         <InfoTitulo>✨ Características de la Arquitectura</InfoTitulo>
         <InfoTexto>
-          <strong>• Aislamiento de estilos:</strong> Cada microfrontend usa Styled Components 
-          que genera clases CSS únicas automáticamente
+          <strong>• Aislamiento de estilos:</strong> Cada microfrontend usa Styled Components
         </InfoTexto>
         <InfoTexto>
-          <strong>• Sin colisiones:</strong> Los componentes pueden tener nombres similares 
-          sin conflictos visuales
+          <strong>• Comunicación desacoplada:</strong> Eventos personalizados entre MF
         </InfoTexto>
         <InfoTexto>
-          <strong>• Identidad visual:</strong> Cada módulo mantiene su propia paleta de colores
+          <strong>• Shell orquestador:</strong> Controla navegación y renderizado
         </InfoTexto>
       </InfoPanel>
 
       <Suspense fallback={<Loading>⏳ Cargando microfrontend...</Loading>}>
         {(vistaActiva === 'productos' || vistaActiva === 'ambos') && <MFProductos />}
         {(vistaActiva === 'usuarios' || vistaActiva === 'ambos') && <MFUsuarios />}
+        {(vistaActiva === 'carrito' || vistaActiva === 'ambos') && <MFCarrito />}
       </Suspense>
     </ShellContainer>
   );

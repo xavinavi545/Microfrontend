@@ -36,6 +36,7 @@ module.exports = {
       remotes: {
         mfProductos: 'mfProductos@http://localhost:3001/remoteEntry.js',
         mfUsuarios: 'mfUsuarios@http://localhost:3002/remoteEntry.js',
+        mfCarrito: 'mfCarrito@http://localhost:3003/remoteEntry.js',
       },
       shared: {
         react: { singleton: true, eager: true },
