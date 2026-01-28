@@ -42,6 +42,10 @@ Cada microfrontend utiliza **Styled Components** para garantizar que sus estilos
 │  │ MF Productos │  │ MF Usuarios │  │
 │  │ (Puerto 3001)│  │(Puerto 3002)│  │
 │  └──────────────┘  └─────────────┘  │
+│          ┌──────────────┐           │
+│          │  MF Carrito  │           │
+│          │ (Puerto 3003)│           │
+│          └──────────────┘           │
 └─────────────────────────────────────┘
 ```
 
@@ -105,6 +109,10 @@ npm install
 cd ../mf-usuarios
 npm install
 
+# Microfrontend Carrito
+cd ../mf-carrito
+npm install
+
 # Shell (Aplicación Contenedora)
 cd ../shell
 npm install
@@ -128,7 +136,7 @@ cd mf-productos; npm install; cd ..\mf-usuarios; npm install; cd ..\shell; npm i
 
 ### Método 1: Inicio Manual (Recomendado)
 
-Abre **3 terminales diferentes** y ejecuta cada comando:
+Abre **4 terminales diferentes** y ejecuta cada comando:
 
 **Terminal 1 - Microfrontend Productos:**
 ```bash
@@ -144,7 +152,14 @@ npm start
 ```
 - Se abrirá en: `http://localhost:3002`
 
-**Terminal 3 - Shell (Aplicación Principal):**
+**Terminal 3 - Microfrontend Carrito:**
+```bash
+cd mf-carrito
+npm start
+```
+- Se abrirá en: `http://localhost:3003`
+
+**Terminal 4 - Shell (Aplicación Principal):**
 ```bash
 cd shell
 npm start
@@ -153,7 +168,7 @@ npm start
 
 ### ⚠️ Orden Importante
 
-**SIEMPRE** inicia primero los microfrontends (3001 y 3002) y **DESPUÉS** el shell (3000), ya que el shell necesita conectarse a los microfrontends activos.
+**SIEMPRE** inicia primero los microfrontends (3001, 3002 y 3003) y **DESPUÉS** el shell (3000), ya que el shell necesita conectarse a los microfrontends activos.
 
 ### Método 2: Script Concurrente (Opcional)
 
@@ -204,6 +219,19 @@ microfrontends-proyecto/
 │   ├── package.json
 │   └── webpack.config.js
 │
+├── mf-carrito/                     # Microfrontend de Carrito
+│   ├── public/
+│   │   ├── index.html
+│   │   ├── favicon.ico
+│   │   └── manifest.json
+│   ├── src/
+│   │   ├── components/
+│   │   │   ├── Carrito.jsx         # Componente estilizado
+│   │   ├── App.jsx                 # Componente principal
+│   │   ├── index.js
+│   │   └── index.css
+│   ├── package.json
+│   └── webpack.config.js
 ├── shell/                           # Aplicación Contenedora
 │   ├── public/
 │   │   ├── index.html
@@ -244,6 +272,12 @@ microfrontends-proyecto/
 - Estadísticas de compras y puntos
 - Modal de edición de perfil
 - Gradiente rosa/rojo característico
+
+#### Microfrontend Carrito
+- Uso standalone de componente
+- Estadísticas de compras
+- Lista de productos
+- Gradiente verde caracteristico
 
 #### Shell
 - Navegación entre microfrontends
